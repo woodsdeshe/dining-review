@@ -10,8 +10,6 @@ public interface ReviewDao {
 
     List<Review> getReviews();
 
-    List<Review> getReviewsWithNoRating();
-
     Review createReview(Review newReview);
 
     void updateReview(Review updatedReview);

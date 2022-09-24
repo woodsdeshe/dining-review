@@ -50,7 +50,10 @@ public class JdbcReviewDao implements ReviewDao{
     public Review createReview(Review newReview) {
       String createReviewSql = "INSERT INTO review (restaurant_name, star_rating, cuisine_type, accepts_credit_card," +
               "neighborhood, food_cost, outdoor_seating) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING review_id;";
-      int newId = jdbcTemplate.queryForObject(createReviewSql, int.class, newReview.getName(), newReview)
+      int newId = jdbcTemplate.queryForObject(createReviewSql, int.class, newReview.getName(), newReview.getStarRating(),
+              newReview.getCuisineType(), newReview.getCuisineType(), newReview.isAcceptsCreditCards(), getReview().getNeighborhood(),
+              newReview.getFoodCost(), getReview().isHasOutdoorSeating());
+      return getReview(newId);
     }
 
     @Override
@@ -59,13 +62,15 @@ public class JdbcReviewDao implements ReviewDao{
                 "SET restaurant_name = ?, star_rating = ?, cuisine_type = ?, accepts_credit_card = ?, neighborhood = ?," +
                 "food_cost = ?, outdoor_seating = ? WHERE review_id = ?;";
 
-        jdbcTemplate.update(createReviewSql, ;)
-
+        jdbcTemplate.update(createReviewSql, updatedReview.getName(), updatedReview.getStarRating(), updatedReview.getCuisineType(),
+                updatedReview.isAcceptsCreditCards(), updatedReview.getNeighborhood(), updatedReview.getFoodCost(),
+                updatedReview.isHasOutdoorSeating());
     }
 
     @Override
     public void deleteReview(int reviewId) {
-
+    String deleteReviewSql = "DELETE FROM review WHERE review_id = ?;";
+    jdbcTemplate.update(deleteReviewSql, reviewId);
 
     }
 
