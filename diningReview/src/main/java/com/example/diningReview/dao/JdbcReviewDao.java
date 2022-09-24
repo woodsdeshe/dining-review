@@ -51,8 +51,8 @@ public class JdbcReviewDao implements ReviewDao{
       String createReviewSql = "INSERT INTO review (restaurant_name, star_rating, cuisine_type, accepts_credit_card," +
               "neighborhood, food_cost, outdoor_seating) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING review_id;";
       int newId = jdbcTemplate.queryForObject(createReviewSql, int.class, newReview.getName(), newReview.getStarRating(),
-              newReview.getCuisineType(), newReview.getCuisineType(), newReview.isAcceptsCreditCards(), getReview().getNeighborhood(),
-              newReview.getFoodCost(), getReview().isHasOutdoorSeating());
+              newReview.getCuisineType(), newReview.getCuisineType(), newReview.isAcceptsCreditCards(), newReview.getNeighborhood(),
+              newReview.getFoodCost(), newReview.isHasOutdoorSeating());
       return getReview(newId);
     }
 
